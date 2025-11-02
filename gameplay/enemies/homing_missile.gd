@@ -6,8 +6,7 @@ extends RigidBody2D
 @export var rotation_speed: float = 5000.0
 
 
-var player: RigidBody2D
-var mouse_position: Vector2 = Vector2.ZERO
+var player: PhysicsBody2D
 
 
 func _ready() -> void:
@@ -30,6 +29,9 @@ func _physics_process(_delta: float) -> void:
 func _get_point_in_front_of_player() -> Vector2:
   var point: Vector2
   var distance: float = player.get_global_position().distance_to(global_position)
-  point = player.get_global_position() + player.get_linear_velocity().normalized() * distance / 2
+  if player is RigidBody2D:
+    point = player.get_global_position() + player.get_linear_velocity().normalized() * distance / 2
+  else:
+    point = player.get_global_position() + player.get_velocity().normalized() * distance / 2
   
   return point

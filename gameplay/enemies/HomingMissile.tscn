@@ -11,6 +11,8 @@ height = 52.0
 collision_layer = 4
 collision_mask = 19
 script = ExtResource("1_xcb1n")
+thrust_speed = 0.0
+rotation_speed = 0.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.06666667, 0, 1)

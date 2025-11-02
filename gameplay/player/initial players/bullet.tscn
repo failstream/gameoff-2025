@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bw6s7smaruca1"]
 
-[ext_resource type="Script" uid="uid://c4uiflosai6in" path="res://gameplay/player/bullet.gd" id="1_yencn"]
+[ext_resource type="Script" uid="uid://c4uiflosai6in" path="res://gameplay/player/initial players/bullet.gd" id="1_yencn"]
 [ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="2_yencn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yencn"]

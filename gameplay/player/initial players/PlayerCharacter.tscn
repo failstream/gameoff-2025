@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c7koh5jyh2sci"]
 
-[ext_resource type="Script" uid="uid://cv2oi51ws3sqo" path="res://gameplay/player/player_character.gd" id="1_msuxg"]
+[ext_resource type="Script" uid="uid://cv2oi51ws3sqo" path="res://gameplay/player/initial players/player_character.gd" id="1_msuxg"]
 [ext_resource type="Texture2D" uid="uid://8ausemy30med" path="res://graphics/basic-shapes/Hexagon.png" id="2_aastf"]
-[ext_resource type="PackedScene" uid="uid://bw6s7smaruca1" path="res://gameplay/player/bullet.tscn" id="2_jp1yx"]
+[ext_resource type="PackedScene" uid="uid://bw6s7smaruca1" path="res://gameplay/player/initial players/bullet.tscn" id="2_jp1yx"]
 [ext_resource type="Texture2D" uid="uid://d0rpiw8wuhg3l" path="res://graphics/basic-shapes/Triangle_Regular.png" id="3_mad2v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mad2v"]

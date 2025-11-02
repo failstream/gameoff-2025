@@ -1,4 +1,4 @@
 extends Node
 
 
-var player: RigidBody2D
+var player: PhysicsBody2D

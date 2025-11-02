@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cuw8ewwa5ryb7"]
+
+[ext_resource type="Texture2D" uid="uid://d0rpiw8wuhg3l" path="res://graphics/basic-shapes/Triangle_Regular.png" id="1_5xa52"]
+[ext_resource type="Script" uid="uid://dolps6ruw1cj4" path="res://gameplay/player/charbody_twinstick/charbody_twinstick.gd" id="1_jfmwf"]
+[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="2_jfmwf"]
+[ext_resource type="Script" uid="uid://qqc3a6do8tvc" path="res://nodes/gravity_field.gd" id="4_ub5b0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ub5b0"]
+radius = 17.029387
+
+[node name="CharbodyTwinstick" type="CharacterBody2D"]
+collision_mask = 28
+motion_mode = 1
+script = ExtResource("1_jfmwf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_5xa52")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -38)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_jfmwf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ub5b0")
+
+[node name="TractorArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+gravity_space_override = 1
+gravity_point = true
+script = ExtResource("4_ub5b0")
+metadata/_custom_type_script = "uid://qqc3a6do8tvc"
+
+[node name="TractorCollision" type="CollisionPolygon2D" parent="TractorArea"]
+polygon = PackedVector2Array(-1, -36, -43, -425, 45, -424)
+disabled = true
+
+[node name="ConeSprite" type="Sprite2D" parent="TractorArea"]
+modulate = Color(1, 0.019607844, 0.13333334, 0.52156866)
+position = Vector2(0, -220)
+rotation = -3.1415925
+scale = Vector2(0.75, 4)
+texture = ExtResource("1_5xa52")
+
+[node name="Camera2D" type="Camera2D" parent="."]
