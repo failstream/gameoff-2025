@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://blydrapybogfr"]
+
+[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="1_6vimm"]
+[ext_resource type="Script" uid="uid://cm1qy85cb1e0q" path="res://gameplay/enemies/homing_missile.gd" id="1_xcb1n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xcb1n"]
+radius = 7.0
+height = 52.0
+
+[node name="HomingMissile" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 19
+script = ExtResource("1_xcb1n")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.06666667, 0, 1)
+scale = Vector2(0.15, 0.6)
+texture = ExtResource("1_6vimm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_xcb1n")

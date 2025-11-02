@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://c7koh5jyh2sci"]
+
+[ext_resource type="Script" uid="uid://cv2oi51ws3sqo" path="res://gameplay/player/player_character.gd" id="1_msuxg"]
+[ext_resource type="Texture2D" uid="uid://8ausemy30med" path="res://graphics/basic-shapes/Hexagon.png" id="2_aastf"]
+[ext_resource type="PackedScene" uid="uid://bw6s7smaruca1" path="res://gameplay/player/bullet.tscn" id="2_jp1yx"]
+[ext_resource type="Texture2D" uid="uid://d0rpiw8wuhg3l" path="res://graphics/basic-shapes/Triangle_Regular.png" id="3_mad2v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mad2v"]
+radius = 28.284271
+
+[node name="MainCharacterBody" type="RigidBody2D"]
+script = ExtResource("1_msuxg")
+bullet_scene = ExtResource("2_jp1yx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_aastf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_mad2v")
+
+[node name="EngineSprite" type="Sprite2D" parent="."]
+position = Vector2(28, 28)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_mad2v")
+
+[node name="EngineSprite2" type="Sprite2D" parent="."]
+position = Vector2(-28, 28)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_mad2v")

@@ -1,0 +1,38 @@
+TODO:
+  
+  1) Need Obstacles (Obstacle Options)
+    a) Procedural Generation (VERY HARD)
+    b) Artifical Options
+      i) right angles/45 degree angles like a asteroid mine, facility
+      ii) space station or large space ship
+      iii) 
+    c) Natural Environs
+      i) Planet side
+      ii) Cave system
+      iii) Open Space (black holes, planets, ships, space stations)
+  
+  2) Player Character Controller
+    a) Gravity Bomb (timed fuse)
+    b) Projectile Shield (reflect or absorb)
+    c) Gravity Shield (reflect or absorb)
+    d) Bullets
+    e) Missles (slower moving, and can damage player)
+    f) Gravity Cone (Tractor/Repel Beam)
+  
+  3) Player System
+    a) Ship parts. A ship part is attached to the main body of the ship. Has own health and physics.
+    b) Different Engine Types
+    c) Various weapons/defensive objects
+  
+  4) Enemy Ideas
+    a) Stationary Gravity Mine
+      i) Proximity Sensor
+      ii) Delayed initial activation after sensor activates
+      iii) Destroyed after going off
+    b) Homing Ballistic Weapon
+      i) Homing weapon that keys onto player position
+      ii) Can be juked or shot down
+      iii) Affected by gravity
+    c) Different Gravity Distortions
+      i) Some suck in/push out, or pull/push at an angle
+    

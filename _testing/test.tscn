@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://br5vimyra17w7"]
+
+[ext_resource type="PackedScene" uid="uid://bpoth00xbewpr" path="res://gameplay/player/twinstick_player.tscn" id="1_j2t48"]
+[ext_resource type="PackedScene" uid="uid://blydrapybogfr" path="res://gameplay/enemies/HomingMissile.tscn" id="3_c3qh6"]
+[ext_resource type="PackedScene" uid="uid://dk7f1td0uq31i" path="res://gameplay/obstacles/wall.tscn" id="3_otovr"]
+
+[sub_resource type="Gradient" id="Gradient_j2t48"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_otovr"]
+gradient = SubResource("Gradient_j2t48")
+width = 1920
+height = 1080
+fill = 1
+fill_from = Vector2(0.4906542, 0.5399792)
+fill_to = Vector2(0.8224299, 0.20768432)
+repeat = 1
+
+[node name="Test" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+texture_repeat = 2
+offset_left = -5936.0
+offset_top = -3325.0
+offset_right = 9544.0
+offset_bottom = 5747.0
+texture = SubResource("GradientTexture2D_otovr")
+stretch_mode = 1
+
+[node name="Wall" parent="." instance=ExtResource("3_otovr")]
+position = Vector2(642, 736)
+scale = Vector2(20, 1)
+
+[node name="Wall2" parent="." instance=ExtResource("3_otovr")]
+position = Vector2(640, -21)
+scale = Vector2(20, 1)
+
+[node name="Wall3" parent="." instance=ExtResource("3_otovr")]
+position = Vector2(-23, 344)
+rotation = 1.5707964
+scale = Vector2(20, 1)
+
+[node name="Wall4" parent="." instance=ExtResource("3_otovr")]
+position = Vector2(1283, 344)
+rotation = 1.5707964
+scale = Vector2(20, 1)
+
+[node name="HomingMissile" parent="." instance=ExtResource("3_c3qh6")]
+position = Vector2(964, 485)
+
+[node name="TwinstickPlayer" parent="." instance=ExtResource("1_j2t48")]
+position = Vector2(625, 344)
+gravity_scale = 1.0
+
+[node name="Camera2D2" type="Camera2D" parent="TwinstickPlayer"]

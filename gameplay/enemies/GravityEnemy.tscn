@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://cm45yn3cixlwm"]
+
+[ext_resource type="Script" uid="uid://br76vvacsbkr3" path="res://gameplay/enemies/gravity_enemy.gd" id="1_mtw1r"]
+[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="2_5tu7t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_d26dr"]
+radius = 15.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mtw1r"]
+
+[node name="GravityEnemy" type="StaticBody2D"]
+script = ExtResource("1_mtw1r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.78729177, 0.37689212, 0, 1)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_5tu7t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_d26dr")
+
+[node name="GravityArea" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity = 400.0
+
+[node name="GravityAreaCollisionShape" type="CollisionShape2D" parent="GravityArea"]
+shape = SubResource("CircleShape2D_mtw1r")
+debug_color = Color(0.8697005, 0.00051750185, 0.852318, 0.41960785)
+
+[node name="TimeBetweenFiring" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimeGrowth" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="TimeAtMax" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="timeout" from="TimeBetweenFiring" to="." method="_on_time_between_firing_timeout"]
+[connection signal="timeout" from="TimeGrowth" to="." method="_on_time_growth_timeout"]
+[connection signal="timeout" from="TimeAtMax" to="." method="_on_time_at_max_timeout"]
