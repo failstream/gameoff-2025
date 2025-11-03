@@ -1,0 +1,47 @@
+[gd_scene load_steps=8 format=3 uid="uid://bq418wmaqttab"]
+
+[ext_resource type="Script" uid="uid://d0ketfm6khln2" path="res://gameplay/enemies/base/base_enemy.gd" id="1_b6h4g"]
+[ext_resource type="Texture2D" uid="uid://8l440ax15gdv" path="res://graphics/basic-shapes/Pentagon.png" id="2_jk4a5"]
+[ext_resource type="Script" uid="uid://bkdxoq6o6t54s" path="res://nodes/hurtbox.gd" id="3_jk4a5"]
+[ext_resource type="Script" uid="uid://bf21kv63xd828" path="res://nodes/attack_box.gd" id="4_l74pa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l74pa"]
+radius = 13.038404
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b6h4g"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r4a34"]
+radius = 11.0
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 64
+motion_mode = 1
+script = ExtResource("1_b6h4g")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 0, 1)
+position = Vector2(0, -2)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_jk4a5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l74pa")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("3_jk4a5")
+metadata/_custom_type_script = "uid://bkdxoq6o6t54s"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_b6h4g")
+
+[node name="AttackBox" type="Area2D" parent="."]
+collision_layer = 0
+script = ExtResource("4_l74pa")
+metadata/_custom_type_script = "uid://bf21kv63xd828"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
+shape = SubResource("CircleShape2D_r4a34")

@@ -17,14 +17,21 @@ TODO:
     c) Gravity Shield (reflect or absorb)
     d) Bullets
     e) Missles (slower moving, and can damage player)
-    f) Gravity Cone (Tractor/Repel Beam)
   
-  3) Player System
+  3) Gravity System
+    a) Make Gravity waves move more like a projectile
+      A) Cast Rays that increase in length every frame to determine if Gravity Wave hits. Apply a custom impulse for the initial hit, then a constant force as long as the ray is still hitting.
+        i)   The rays will stop when they hit an object, so you it acts more like a projectile and less like a cone or area of effect.
+      B) Use a GravityField area and increase the length of the cone every frame while it is pressed until it reaches max distance.
+      C) Fire a projectile that pushes or pulls the target hit instead of damaging it.
+      D) Fire a projectile gravity bomb that pulls in all enemies to the target location quickly after fuse is up
+  
+  4) Player System
     a) Ship parts. A ship part is attached to the main body of the ship. Has own health and physics.
     b) Different Engine Types
     c) Various weapons/defensive objects
   
-  4) Enemy Ideas
+  5) Enemy Ideas
     a) Stationary Gravity Mine
       i) Proximity Sensor
       ii) Delayed initial activation after sensor activates

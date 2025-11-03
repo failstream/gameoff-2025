@@ -1,17 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuw8ewwa5ryb7"]
+[gd_scene load_steps=8 format=3 uid="uid://cuw8ewwa5ryb7"]
 
 [ext_resource type="Texture2D" uid="uid://d0rpiw8wuhg3l" path="res://graphics/basic-shapes/Triangle_Regular.png" id="1_5xa52"]
 [ext_resource type="Script" uid="uid://dolps6ruw1cj4" path="res://gameplay/player/charbody_twinstick/charbody_twinstick.gd" id="1_jfmwf"]
 [ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="2_jfmwf"]
 [ext_resource type="Script" uid="uid://qqc3a6do8tvc" path="res://nodes/gravity_field.gd" id="4_ub5b0"]
+[ext_resource type="Script" uid="uid://bkdxoq6o6t54s" path="res://nodes/hurtbox.gd" id="5_2umx2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ub5b0"]
 radius = 17.029387
 
-[node name="CharbodyTwinstick" type="CharacterBody2D"]
-collision_mask = 28
+[sub_resource type="CircleShape2D" id="CircleShape2D_8ks8t"]
+radius = 17.029387
+
+[node name="CharbodyTwinstick" type="CharacterBody2D" node_paths=PackedStringArray("tractor_area", "tractor_collision", "cone_sprite", "right_stick_aim", "weapon_spawn", "player_hurtbox")]
+collision_mask = 64
 motion_mode = 1
 script = ExtResource("1_jfmwf")
+tractor_area = NodePath("RightStickAim/WeaponSpawn/TractorArea")
+tractor_collision = NodePath("RightStickAim/WeaponSpawn/TractorArea/TractorCollision")
+cone_sprite = NodePath("RightStickAim/WeaponSpawn/TractorArea/ConeSprite")
+right_stick_aim = NodePath("RightStickAim")
+weapon_spawn = NodePath("RightStickAim/WeaponSpawn")
+player_hurtbox = NodePath("Hurtbox")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
@@ -23,26 +33,48 @@ position = Vector2(0, -38)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_jfmwf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_ub5b0")
+[node name="RightStickAim" type="Node2D" parent="."]
 
-[node name="TractorArea" type="Area2D" parent="."]
+[node name="Crosshair" type="Sprite2D" parent="RightStickAim"]
+modulate = Color(0, 0, 1, 1)
+position = Vector2(0, -49)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_5xa52")
+
+[node name="WeaponSpawn" type="Marker2D" parent="RightStickAim"]
+position = Vector2(0, -56)
+
+[node name="TractorArea" type="Area2D" parent="RightStickAim/WeaponSpawn"]
 collision_layer = 2
 collision_mask = 4
 gravity_space_override = 1
 gravity_point = true
+gravity_point_unit_distance = 200.0
+gravity = 2000.0
 script = ExtResource("4_ub5b0")
 metadata/_custom_type_script = "uid://qqc3a6do8tvc"
 
-[node name="TractorCollision" type="CollisionPolygon2D" parent="TractorArea"]
+[node name="TractorCollision" type="CollisionPolygon2D" parent="RightStickAim/WeaponSpawn/TractorArea"]
 polygon = PackedVector2Array(-1, -36, -43, -425, 45, -424)
 disabled = true
 
-[node name="ConeSprite" type="Sprite2D" parent="TractorArea"]
+[node name="ConeSprite" type="Sprite2D" parent="RightStickAim/WeaponSpawn/TractorArea"]
+visible = false
 modulate = Color(1, 0.019607844, 0.13333334, 0.52156866)
 position = Vector2(0, -220)
 rotation = -3.1415925
 scale = Vector2(0.75, 4)
 texture = ExtResource("1_5xa52")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ub5b0")
+
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_mask = 0
+script = ExtResource("5_2umx2")
+metadata/_custom_type_script = "uid://bkdxoq6o6t54s"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_8ks8t")

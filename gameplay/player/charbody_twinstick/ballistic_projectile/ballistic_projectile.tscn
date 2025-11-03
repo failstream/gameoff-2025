@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://b5b7qltbo6ya4"]
+
+[ext_resource type="Script" uid="uid://dge6yyjgk4cn1" path="res://gameplay/player/charbody_twinstick/ballistic_projectile/ballistic_projectile.gd" id="1_ok20u"]
+[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="1_u3jqj"]
+[ext_resource type="Script" uid="uid://bf21kv63xd828" path="res://nodes/attack_box.gd" id="3_0dyp8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ok20u"]
+radius = 62.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0dyp8"]
+radius = 62.0
+
+[node name="BallisticProjectile" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
+collision_layer = 4
+collision_mask = 64
+motion_mode = 1
+script = ExtResource("1_ok20u")
+hitbox = NodePath("Attackbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.6392157, 0.27450982, 1, 1)
+texture = ExtResource("1_u3jqj")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ok20u")
+
+[node name="Attackbox" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 41
+script = ExtResource("3_0dyp8")
+metadata/_custom_type_script = "uid://bf21kv63xd828"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attackbox"]
+shape = SubResource("CircleShape2D_0dyp8")

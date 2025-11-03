@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://te2bdsge2s6c"]
+
+[ext_resource type="Texture2D" uid="uid://8ausemy30med" path="res://graphics/basic-shapes/Hexagon.png" id="1_1m828"]
+[ext_resource type="Script" uid="uid://csh2vr7jveqhs" path="res://gameplay/player/rigidbody_lander/rigidbody_lander.gd" id="1_f1v0c"]
+[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="2_7te1c"]
+[ext_resource type="Texture2D" uid="uid://d0rpiw8wuhg3l" path="res://graphics/basic-shapes/Triangle_Regular.png" id="3_f1v0c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f1v0c"]
+radius = 26.172504
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7gge2"]
+radius = 12.0
+height = 44.0
+
+[node name="Lander" type="RigidBody2D"]
+collision_mask = 28
+script = ExtResource("1_f1v0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_1m828")
+
+[node name="MainBody" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_f1v0c")
+
+[node name="LeftEngine" type="CollisionShape2D" parent="."]
+position = Vector2(-56, 0)
+shape = SubResource("CapsuleShape2D_7gge2")
+
+[node name="LeftFlame" type="Sprite2D" parent="LeftEngine"]
+visible = false
+modulate = Color(1, 0.5254902, 0.12941177, 0.5568628)
+position = Vector2(0, 63)
+scale = Vector2(0.25, -1)
+texture = ExtResource("3_f1v0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="LeftEngine"]
+scale = Vector2(0.25, 0.4)
+texture = ExtResource("2_7te1c")
+
+[node name="LeftMarker" type="Marker2D" parent="LeftEngine"]
+position = Vector2(0, 22)
+
+[node name="RightEngine" type="CollisionShape2D" parent="."]
+position = Vector2(57, 0)
+shape = SubResource("CapsuleShape2D_7gge2")
+
+[node name="RightFlame" type="Sprite2D" parent="RightEngine"]
+visible = false
+modulate = Color(1, 0.5254902, 0.12941177, 0.5568628)
+position = Vector2(0, 63)
+scale = Vector2(0.25, -1)
+texture = ExtResource("3_f1v0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="RightEngine"]
+scale = Vector2(0.25, 0.4)
+texture = ExtResource("2_7te1c")
+
+[node name="RightMarker" type="Marker2D" parent="RightEngine"]
+position = Vector2(0, 22)

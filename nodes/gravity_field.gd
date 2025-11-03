@@ -110,6 +110,13 @@ func get_body_gravity(body: CharacterBody2D) -> Vector2:
   return applied_gravity[body]
 
 
+func reset_body_gravity(body: CharacterBody2D) -> void:
+  
+  if not body or not applied_gravity.has(body) or not increasing_gravity.has(body):
+    return
+  applied_gravity[body] = Vector2.ZERO
+
+
 ## adds this body to the gravity calculations.
 func _add_body(body: CharacterBody2D) -> void:
   applied_gravity[body] = Vector2.ZERO

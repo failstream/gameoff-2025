@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
-@onready var tractor_area: GravityField = $TractorArea
-@onready var tractor_collision: CollisionPolygon2D = $TractorArea/TractorCollision
-@onready var cone_sprite: Sprite2D = $TractorArea/ConeSprite
+@export var tractor_area: GravityField
+@export var tractor_collision: CollisionPolygon2D
+@export var cone_sprite: Sprite2D
+@export var right_stick_aim: Node2D
+@export var weapon_spawn: Marker2D
+@export var player_hurtbox: Hurtbox
 
 @export var thrust_force: float = 350.0
 
@@ -12,6 +15,12 @@ var gravity_fields: Array[GravityField] = []
 
 func _enter_tree() -> void:
   Game.player = self
+  disable_cone()
+
+
+func _ready() -> void:
+  
+  player_hurtbox.resolve_collision.connect(_resolve_collision, CONNECT_PERSIST)
 
 
 func _physics_process(delta: float) -> void:
@@ -19,12 +28,13 @@ func _physics_process(delta: float) -> void:
   var left_stick: Vector2 = Input.get_vector("Lstick_left", "Lstick_right", "Lstick_up", "Lstick_down")
   var right_stick: Vector2 = Input.get_vector("Rstick_left", "Rstick_right", "Rstick_up", "Rstick_down")
   
-  if right_stick.is_zero_approx():
+  if not right_stick.is_zero_approx():
+    right_stick_aim.set_global_rotation(right_stick.angle_to(Vector2.UP) * -1)
+  
+  if Input.is_action_pressed("fire") and not gravity_cone_enabled:
+    enable_cone()
+  elif Input.is_action_just_released("fire"):
     disable_cone()
-  else:
-    tractor_area.set_global_rotation(right_stick.angle_to(Vector2.UP) * -1)
-    if not gravity_cone_enabled:
-      enable_cone()
   
   if not left_stick.is_zero_approx():
     move_player(left_stick)
@@ -52,3 +62,15 @@ func enable_cone() -> void:
   tractor_collision.set_disabled(false)
   cone_sprite.set_visible(true)
   gravity_cone_enabled = true
+
+
+func _resolve_collision(_attackbox: AttackBox, _hurtbox: Hurtbox) -> void:
+  if _attackbox.get_collision_layer_value(8):
+    var projectile: BallisticProjectile = _attackbox.get_parent()
+    var projectile_velocity: Vector2 = projectile.get_real_velocity()
+    var speed: float = projectile_velocity.length()
+    var projectile_travel_direction: Vector2 = projectile_velocity.normalized()
+    var direction_away_from_projectile: Vector2 = -global_position.direction_to(projectile.global_position)
+    ## weight the new velocity via speed. Faster the speed, the more weighted in the projectile travel direction
+    ## the slower, the more weighted in the direction away from projectile
+    var new_direction: Vector2 = projectile_velocity * -projectile_travel_direction.dot(direction_away_from_projectile)
