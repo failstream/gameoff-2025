@@ -25,6 +25,9 @@ var gravity_point_offset: Vector2 = Vector2.ZERO
 ## that breaks behavior with RigidBody2D for some reason.
 var custom_gravity_center: Vector2 = Vector2.ZERO
 
+## inverts the gravity field when true
+var invert_gravity: bool = false
+
 ## Used to calculate how fast gravity goes to zero while increasing_gravity is false. Should change
 ## this to export and/or make the function customizable somehow.
 const GRAVITY_FALLOFF: float = 300.0
@@ -146,7 +149,8 @@ func _step_gravity(delta: float, body: CharacterBody2D) -> void:
 func _step_gravity_direction(delta: float, body: CharacterBody2D) -> void:
   
   if increasing_gravity[body]:
-    applied_gravity[body] = applied_gravity[body].move_toward(gravity_direction * gravity, gravity * delta)
+    var inverted: int = -1 if invert_gravity else 1
+    applied_gravity[body] = applied_gravity[body].move_toward(gravity_direction * gravity, gravity * delta * inverted)
   elif not increasing_gravity[body] and not applied_gravity[body].is_zero_approx():
     _diminish_gravity(delta, body)
 
@@ -156,12 +160,14 @@ func _step_gravity_point(delta: float, body: CharacterBody2D) -> void:
   
   var current_gravity_direction: Vector2 = body.global_position.direction_to(custom_gravity_center)
   var distance: float = body.global_position.distance_to(custom_gravity_center)
+  var inverted: int = -1 if invert_gravity else 1
   var force: float = gravity
+  
   if gravity_point_unit_distance > 0.0 and not is_zero_approx(gravity_point_unit_distance):
     force =  gravity / (distance / abs(gravity_point_unit_distance))
   
   if increasing_gravity[body]:
-    applied_gravity[body] = applied_gravity[body].move_toward(current_gravity_direction * force, force * delta)
+    applied_gravity[body] = applied_gravity[body].move_toward(current_gravity_direction * force * inverted, force * delta)
   elif not increasing_gravity[body] and not applied_gravity[body].is_zero_approx():
     _diminish_gravity(delta, body)
 

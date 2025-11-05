@@ -1,10 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://br5vimyra17w7"]
+[gd_scene load_steps=7 format=3 uid="uid://br5vimyra17w7"]
 
-[ext_resource type="PackedScene" uid="uid://blydrapybogfr" path="res://gameplay/enemies/HomingMissile.tscn" id="3_c3qh6"]
 [ext_resource type="PackedScene" uid="uid://cuw8ewwa5ryb7" path="res://gameplay/player/charbody_twinstick/charbody_twinstick.tscn" id="3_gubp4"]
 [ext_resource type="PackedScene" uid="uid://dk7f1td0uq31i" path="res://gameplay/obstacles/wall.tscn" id="3_otovr"]
-[ext_resource type="Script" uid="uid://qqc3a6do8tvc" path="res://nodes/gravity_field.gd" id="4_c3qh6"]
-[ext_resource type="Texture2D" uid="uid://b3lvnfn2d167k" path="res://graphics/basic-shapes/Circle.png" id="4_gubp4"]
 [ext_resource type="PackedScene" uid="uid://b5b7qltbo6ya4" path="res://gameplay/player/charbody_twinstick/ballistic_projectile/ballistic_projectile.tscn" id="6_8lha0"]
 [ext_resource type="PackedScene" uid="uid://bq418wmaqttab" path="res://gameplay/enemies/base/base_enemy.tscn" id="7_b3can"]
 
@@ -18,12 +15,6 @@ fill = 1
 fill_from = Vector2(0.4906542, 0.5399792)
 fill_to = Vector2(0.8224299, 0.20768432)
 repeat = 1
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gubp4"]
-radius = 200.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8lha0"]
-radius = 32.0
 
 [node name="Test" type="Node2D"]
 
@@ -55,50 +46,29 @@ position = Vector2(1283, 344)
 rotation = 1.5707964
 scale = Vector2(20, 1)
 
-[node name="GravityField" type="Area2D" parent="."]
-position = Vector2(317, 439)
-collision_layer = 0
-collision_mask = 45
-monitorable = false
-gravity_space_override = 1
-gravity_point = true
-gravity_point_unit_distance = 100.0
-gravity_point_center = Vector2(0, 0)
-gravity_direction = Vector2(0, 0)
-gravity = 60.0
-script = ExtResource("4_c3qh6")
-metadata/_custom_type_script = "uid://qqc3a6do8tvc"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField"]
-shape = SubResource("CircleShape2D_gubp4")
-disabled = true
-debug_color = Color(0, 1, 0.25490198, 0.41960785)
-
-[node name="Sprite2D" type="Sprite2D" parent="GravityField"]
-modulate = Color(0, 0.49803922, 0, 1)
-scale = Vector2(3.2, 3.2)
-texture = ExtResource("4_gubp4")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(469, 336)
-collision_layer = 32
-collision_mask = 81
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_gubp4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_8lha0")
-
 [node name="CharbodyTwinstick" parent="." instance=ExtResource("3_gubp4")]
 position = Vector2(643, 374)
-
-[node name="HomingMissile" parent="." instance=ExtResource("3_c3qh6")]
-position = Vector2(1004, 404)
 
 [node name="BallisticProjectile" parent="." instance=ExtResource("6_8lha0")]
 position = Vector2(336, 280)
 
 [node name="BaseEnemy" parent="." instance=ExtResource("7_b3can")]
-position = Vector2(913, 179)
+position = Vector2(876, 330)
+
+[node name="BaseEnemy2" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(895, 459)
+
+[node name="BaseEnemy3" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(258, 616)
+
+[node name="BaseEnemy4" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(186, 108)
+
+[node name="BaseEnemy5" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(920, 92)
+
+[node name="BaseEnemy6" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(1020, 340)
+
+[node name="BaseEnemy7" parent="." instance=ExtResource("7_b3can")]
+position = Vector2(443, 604)

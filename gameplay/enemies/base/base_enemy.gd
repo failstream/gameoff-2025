@@ -2,8 +2,13 @@ extends CharacterBody2D
 
 @onready var hurtbox: Hurtbox = $Hurtbox
 
-@export var max_speed: float = 500.0
-@export var acceleration: float = 800
+@export var max_speed: float = 600.0
+@export var acceleration: float = 900
+
+var knocked_back: bool = false
+var knockback_rotation_speed: float = 0.0
+
+var health: int = 100: set = change_health
 
 func _ready() -> void:
   
@@ -20,5 +25,38 @@ func _physics_process(delta: float) -> void:
   move_and_slide()
 
 
-func _got_hurt(attack_area: AttackBox, hurt_area: Hurtbox) -> void:
-  print("ENEMY OUCH!")
+func _got_hurt(attack_area: AttackBox, _hurt_area: Hurtbox) -> void:
+  if attack_area.get_collision_layer_value(8):
+    Collisions.ballistic_collision(attack_area.get_parent(), self)
+
+
+func knockback(direction: Vector2, speed: float, impact_velocity: float) -> void:
+  if is_zero_approx(impact_velocity):
+    return
+  var added_velocity: Vector2 = Vector2.ZERO
+  if impact_velocity > 2000.0:
+    added_velocity = direction * 2000
+    knockback_rotation_speed = 50.0
+    subtract_health(50)
+  elif impact_velocity < 200.0:
+    added_velocity = direction * 200.0
+    knockback_rotation_speed = 20.0
+    subtract_health(10)
+  else:
+    added_velocity = direction * speed
+    knockback_rotation_speed = Collisions.scalef(speed, 200.0, 2000.0, 20.0, 50.0)
+    subtract_health(25)
+  
+  velocity += added_velocity * 2.0
+
+
+func change_health(value: int) -> void:
+  health = value
+  modulate.g = Collisions.scalef(health as float, 0.0, 100.0, 0.0, 1.0)
+  modulate.b = Collisions.scalef(health as float, 0.0, 100.0, 0.0, 1.0)
+
+
+func subtract_health(amount: int) -> void:
+  health -= amount
+  if health <= 0:
+    queue_free()

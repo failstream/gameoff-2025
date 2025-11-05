@@ -16,7 +16,7 @@ radius = 11.0
 
 [node name="BaseEnemy" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 64
+collision_mask = 76
 motion_mode = 1
 script = ExtResource("1_b6h4g")
 
@@ -39,7 +39,7 @@ metadata/_custom_type_script = "uid://bkdxoq6o6t54s"
 shape = SubResource("CircleShape2D_b6h4g")
 
 [node name="AttackBox" type="Area2D" parent="."]
-collision_layer = 0
+collision_layer = 8
 script = ExtResource("4_l74pa")
 metadata/_custom_type_script = "uid://bf21kv63xd828"
 

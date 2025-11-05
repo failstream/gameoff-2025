@@ -13,7 +13,7 @@ radius = 17.029387
 radius = 17.029387
 
 [node name="CharbodyTwinstick" type="CharacterBody2D" node_paths=PackedStringArray("tractor_area", "tractor_collision", "cone_sprite", "right_stick_aim", "weapon_spawn", "player_hurtbox")]
-collision_mask = 64
+collision_mask = 68
 motion_mode = 1
 script = ExtResource("1_jfmwf")
 tractor_area = NodePath("RightStickAim/WeaponSpawn/TractorArea")
@@ -34,6 +34,7 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_jfmwf")
 
 [node name="RightStickAim" type="Node2D" parent="."]
+top_level = true
 
 [node name="Crosshair" type="Sprite2D" parent="RightStickAim"]
 modulate = Color(0, 0, 1, 1)
@@ -60,7 +61,7 @@ disabled = true
 
 [node name="ConeSprite" type="Sprite2D" parent="RightStickAim/WeaponSpawn/TractorArea"]
 visible = false
-modulate = Color(1, 0.019607844, 0.13333334, 0.52156866)
+modulate = Color(0.105882354, 0.019607844, 1, 0.52156866)
 position = Vector2(0, -220)
 rotation = -3.1415925
 scale = Vector2(0.75, 4)
@@ -78,3 +79,9 @@ metadata/_custom_type_script = "uid://bkdxoq6o6t54s"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_8ks8t")
+
+[node name="ControlDisabledTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="ControlDisabledTimer" to="." method="_on_control_disabled_timer_timeout"]
